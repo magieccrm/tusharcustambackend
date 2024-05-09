@@ -1332,12 +1332,12 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
   const followuplead = await Lead.find({
 
     status: {
-      $nin: [
+      $in: [
         new ObjectId("65a904ed4473619190494484"),
         // new ObjectId("65a904ed4473619190494484")
       ],
     },
-
+    type: "excel",
   });
 
 
@@ -1472,12 +1472,12 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
   const followuplead = await Lead.find({
     assign_to_agent: agentObjectId,
     status: {
-      $nin: [
+      $in: [
         // new ObjectId("65a904e04473619190494482"),
         new ObjectId("65a904ed4473619190494484"),
       ],
     },
-
+    type: "excel",
   });
 
 
@@ -1631,12 +1631,12 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
   const followuplead = await Lead.find({
     assign_to_agent: { $in: allAgents.map(agent => new ObjectId(agent._id)) },
     status: {
-      $nin: [
+      $in: [
         // new ObjectId("65a904e04473619190494482"),
         new ObjectId("65a904ed4473619190494484"),
       ],
     },
-
+    type: "excel",
   });
 
 
