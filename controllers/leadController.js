@@ -529,9 +529,9 @@ exports.getAllLeadFollowup = catchAsyncErrors(async (req, res, next) => {
       $match: {
         status: {
           $nin: [
-            new ObjectId("65a904e04473619190494482"),
             new ObjectId("65a904ed4473619190494484"),
-            new ObjectId("65a904fc4473619190494486")
+            // new ObjectId("65a904ed4473619190494484"),
+            // new ObjectId("65a904fc4473619190494486")
           ],
         },
       },
@@ -660,9 +660,9 @@ exports.getLeadbyagentidandwithoutstatus = catchAsyncErrors(
           status: {
             //$nin: ["65a904e04473619190494482", "65a904ed4473619190494484"],
             $nin: [
-              new ObjectId("65a904e04473619190494482"),
               new ObjectId("65a904ed4473619190494484"),
-              new ObjectId("65a904fc4473619190494486")
+              // new ObjectId("65a904ed4473619190494484"),
+              // new ObjectId("65a904fc4473619190494486")
             ],
           },
         },
@@ -1061,9 +1061,9 @@ exports.getLeadbyTeamLeaderidandwithoutstatus = catchAsyncErrors(
         $match: {
           status: {
              $nin: [
-              new ObjectId("65a904e04473619190494482"),
               new ObjectId("65a904ed4473619190494484"),
-              new ObjectId("65a904fc4473619190494486")
+              // new ObjectId("65a904ed4473619190494484"),
+              // new ObjectId("65a904fc4473619190494486")
             ],
           },
         },

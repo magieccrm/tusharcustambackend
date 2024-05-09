@@ -1333,8 +1333,8 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
 
     status: {
       $nin: [
-        new ObjectId("65a904e04473619190494482"),
-        new ObjectId("65a904ed4473619190494484")
+        new ObjectId("65a904ed4473619190494484"),
+        // new ObjectId("65a904ed4473619190494484")
       ],
     },
 
@@ -1424,7 +1424,7 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
   });
   const Shedule_Visit_name = await Status.findOne({ _id: '65a903e9447361919049447a' });
   array.push(
-    { ['name']: 'Followup Lead', ['Value']: followuplead.length },
+    { ['name']: 'Pending', ['Value']: followuplead.length },
     { ['name']: 'Total Agent', ['Value']: TotalAgent },
     {
       ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length, ['Value1']: meetingleadNextDay.length,
@@ -1473,8 +1473,8 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
     assign_to_agent: agentObjectId,
     status: {
       $nin: [
-        new ObjectId("65a904e04473619190494482"),
-        new ObjectId("65a904ed4473619190494484")
+        // new ObjectId("65a904e04473619190494482"),
+        new ObjectId("65a904ed4473619190494484"),
       ],
     },
 
@@ -1572,7 +1572,7 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
   });
   const Shedule_Visit_name = await Status.findOne({ _id: '65a903e9447361919049447a' });
   array.push(
-    { ['name']: 'Followup Lead', ['Value']: followuplead.length },
+    { ['name']: 'Pending', ['Value']: followuplead.length },
     { ['name']: 'Total Agent', ['Value']: 1 },
     {
       ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length, ['Value1']: meetingleadNextDay.length,
@@ -1632,8 +1632,8 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
     assign_to_agent: { $in: allAgents.map(agent => new ObjectId(agent._id)) },
     status: {
       $nin: [
-        new ObjectId("65a904e04473619190494482"),
-        new ObjectId("65a904ed4473619190494484")
+        // new ObjectId("65a904e04473619190494482"),
+        new ObjectId("65a904ed4473619190494484"),
       ],
     },
 
@@ -1731,7 +1731,7 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
   });
   const Shedule_Visit_name = await Status.findOne({ _id: '65a903e9447361919049447a' });
   array.push(
-    { ['name']: 'Followup Lead', ['Value']: followuplead.length },
+    { ['name']: 'Pending', ['Value']: followuplead.length },
     { ['name']: 'Total Agent', ['Value']: allAgents.map(agent => new ObjectId(agent._id))?.length },
     {
       ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length, ['Value1']: meetingleadNextDay.length,
