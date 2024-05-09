@@ -1344,12 +1344,12 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
   ///// for meeting
   const meetinglead = await Lead.find({
     status: '65a904164473619190494480',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
+    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
+    //   ]
+    // }
   });
   const meetingleadNextDay = await Lead.find({
     status: '65a904164473619190494480',
@@ -1365,12 +1365,12 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
   ///// for Call Back (Visit)
   const Visit = await Lead.find({
     status: '65a903f8447361919049447c',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
+    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
+    //   ]
+    // }
   });
   const VisitleadNextDay = await Lead.find({
     status: '65a903f8447361919049447c',
@@ -1386,12 +1386,12 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
   ///// for Call Back (Re-Visit)
   const Re_Visit = await Lead.find({
     status: '65a903ca4473619190494478',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
+    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
+    //   ]
+    // }
   });
   const Re_VisitleadNextDay = await Lead.find({
     status: '65a903ca4473619190494478',
@@ -1406,12 +1406,12 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
   ///// for Call Back (Re-Visit)
   const Shedule_Visit = await Lead.find({
     status: '65a903e9447361919049447a',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
+    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
+    //   ]
+    // }
   });
   const Shedule_VisitleadNextDay = await Lead.find({
     status: '65a903e9447361919049447a',
@@ -1427,19 +1427,19 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
     { ['name']: 'Pending', ['Value']: followuplead.length },
     // { ['name']: 'Total Agent', ['Value']: TotalAgent },
     {
-      ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length, ['Value1']: meetingleadNextDay.length,
+      ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length,
       ['id']: '65a904164473619190494480'
     },
     {
-      ['name']: Visit_name?.status_name1, ['Value']: Visit.length, ['Value1']: VisitleadNextDay.length
+      ['name']: Visit_name?.status_name1, ['Value']: Visit.length
       , ['id']: '65a903f8447361919049447c'
     },
     {
-      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length, ['Value1']: Re_VisitleadNextDay.length,
+      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length, 
       ['id']: '65a903ca4473619190494478'
     },
     {
-      ['name']: Shedule_Visit_name?.status_name1, ['Value']: Shedule_Visit.length, ['Value1']: Shedule_VisitleadNextDay.length,
+      ['name']: Shedule_Visit_name?.status_name1, ['Value']: Shedule_Visit.length,
       ['id']: '65a903e9447361919049447a'
     },
   );
@@ -1485,12 +1485,12 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
   const meetinglead = await Lead.find({
     assign_to_agent: agentObjectId,
     status: '65a904164473619190494480',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
+    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
+    //   ]
+    // }
   });
   const meetingleadNextDay = await Lead.find({
     assign_to_agent: agentObjectId,
@@ -1517,13 +1517,13 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
   });
   const VisitleadNextDay = await Lead.find({
     assign_to_agent: agentObjectId,
-    status: '65a903f8447361919049447c',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
-        { $dateToString: { format: "%Y-%m-%d", date: nextDate } }
-      ]
-    }
+    // status: '65a903f8447361919049447c',
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
+    //     { $dateToString: { format: "%Y-%m-%d", date: nextDate } }
+    //   ]
+    // }
   });
   const Visit_name = await Status.findOne({ _id: '65a903f8447361919049447c' });
 
@@ -1553,12 +1553,12 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
   const Shedule_Visit = await Lead.find({
     assign_to_agent: agentObjectId,
     status: '65a903e9447361919049447a',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
+    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
+    //   ]
+    // }
   });
   const Shedule_VisitleadNextDay = await Lead.find({
     assign_to_agent: agentObjectId,
@@ -1575,19 +1575,19 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
     { ['name']: 'Pending', ['Value']: followuplead.length },
     // { ['name']: 'Total Agent', ['Value']: 1 },
     {
-      ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length, ['Value1']: meetingleadNextDay.length,
+      ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length,
       ['id']: '65a904164473619190494480'
     },
     {
-      ['name']: Visit_name?.status_name1, ['Value']: Visit.length, ['Value1']: VisitleadNextDay.length
+      ['name']: Visit_name?.status_name1, ['Value']: Visit.length
       , ['id']: '65a903f8447361919049447c'
     },
     {
-      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length, ['Value1']: Re_VisitleadNextDay.length,
+      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length,
       ['id']: '65a903ca4473619190494478'
     },
     {
-      ['name']: Shedule_Visit_name?.status_name1, ['Value']: Shedule_Visit.length, ['Value1']: Shedule_VisitleadNextDay.length,
+      ['name']: Shedule_Visit_name?.status_name1, ['Value']: Shedule_Visit.length,
       ['id']: '65a903e9447361919049447a'
     },
   );
@@ -1644,12 +1644,12 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
   const meetinglead = await Lead.find({
     assign_to_agent: { $in: allAgents.map(agent => new ObjectId(agent._id)) },
     status: '65a904164473619190494480',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
+    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
+    //   ]
+    // }
   });
   const meetingleadNextDay = await Lead.find({
     assign_to_agent: { $in: allAgents.map(agent => new ObjectId(agent._id)) },
@@ -1690,12 +1690,12 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
   const Re_Visit = await Lead.find({
     assign_to_agent: { $in: allAgents.map(agent => new ObjectId(agent._id)) },
     status: '65a903ca4473619190494478',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
+    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
+    //   ]
+    // }
   });
   const Re_VisitleadNextDay = await Lead.find({
     assign_to_agent: { $in: allAgents.map(agent => new ObjectId(agent._id)) },
@@ -1712,12 +1712,12 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
   const Shedule_Visit = await Lead.find({
     assign_to_agent: { $in: allAgents.map(agent => new ObjectId(agent._id)) },
     status: '65a903e9447361919049447a',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    // $expr: {
+    //   $eq: [
+    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
+    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
+    //   ]
+    // }
   });
   const Shedule_VisitleadNextDay = await Lead.find({
     assign_to_agent: { $in: allAgents.map(agent => new ObjectId(agent._id)) },
@@ -1734,19 +1734,19 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
     { ['name']: 'Pending', ['Value']: followuplead.length },
     // { ['name']: 'Total Agent', ['Value']: allAgents.map(agent => new ObjectId(agent._id))?.length },
     {
-      ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length, ['Value1']: meetingleadNextDay.length,
+      ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length, 
       ['id']: '65a904164473619190494480'
     },
     {
-      ['name']: Visit_name?.status_name1, ['Value']: Visit.length, ['Value1']: VisitleadNextDay.length
+      ['name']: Visit_name?.status_name1, ['Value']: Visit.length
       , ['id']: '65a903f8447361919049447c'
     },
     {
-      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length, ['Value1']: Re_VisitleadNextDay.length,
+      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length, 
       ['id']: '65a903ca4473619190494478'
     },
     {
-      ['name']: Shedule_Visit_name?.status_name1, ['Value']: Shedule_Visit.length, ['Value1']: Shedule_VisitleadNextDay.length,
+      ['name']: Shedule_Visit_name?.status_name1, ['Value']: Shedule_Visit.length,
       ['id']: '65a903e9447361919049447a'
     },
   );
