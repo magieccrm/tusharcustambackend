@@ -1328,6 +1328,9 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
   const targetDateOnly = new Date(targetDate.toISOString().split('T')[0]);
   const nextDate = new Date(targetDate);
   nextDate.setDate(nextDate.getDate() + 1); // Get next day from targetDate
+
+  const alllead = await Lead.find();
+
   ///// for Followup Lead count
   const followuplead = await Lead.find({
 
@@ -1424,8 +1427,9 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
   });
   const Shedule_Visit_name = await Status.findOne({ _id: '65a903e9447361919049447a' });
   array.push(
+    { ['name']: 'Total Lead', ['Value']: alllead.length },
     { ['name']: 'Pending', ['Value']: followuplead.length },
-    // { ['name']: 'Total Agent', ['Value']: TotalAgent },
+   
     {
       ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length,
       ['id']: '65a904164473619190494480'
@@ -1468,6 +1472,9 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
   const targetDateOnly = new Date(targetDate.toISOString().split('T')[0]);
   const nextDate = new Date(targetDate);
   nextDate.setDate(nextDate.getDate() + 1); // Get next day from targetDate
+   
+  const alllead = await Lead.find();
+
   ///// for Followup Lead count
   const followuplead = await Lead.find({
     assign_to_agent: agentObjectId,
@@ -1572,6 +1579,7 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
   });
   const Shedule_Visit_name = await Status.findOne({ _id: '65a903e9447361919049447a' });
   array.push(
+    { ['name']: 'Total Lead', ['Value']: alllead.length },
     { ['name']: 'Pending', ['Value']: followuplead.length },
     // { ['name']: 'Total Agent', ['Value']: 1 },
     {
@@ -1626,6 +1634,8 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
   const targetDateOnly = new Date(targetDate.toISOString().split('T')[0]);
   const nextDate = new Date(targetDate);
   nextDate.setDate(nextDate.getDate() + 1); // Get next day from targetDate
+
+  const alllead = await Lead.find();
   ///// for Followup Lead count
 
   const followuplead = await Lead.find({
@@ -1731,6 +1741,7 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
   });
   const Shedule_Visit_name = await Status.findOne({ _id: '65a903e9447361919049447a' });
   array.push(
+    { ['name']: 'Total Lead', ['Value']: alllead.length },
     { ['name']: 'Pending', ['Value']: followuplead.length },
     // { ['name']: 'Total Agent', ['Value']: allAgents.map(agent => new ObjectId(agent._id))?.length },
     {
