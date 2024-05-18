@@ -269,15 +269,15 @@ exports.getAllNewLead = catchAsyncErrors(async (req, res, next) => {
     //  if(leadstatusid.toString()==='65a904fc4473619190494486'){
     //   filteredLeads.push(singleLead);
     // }
-    
-    if (leadstatusid && leadstatusid.toString() === '65a904fc4473619190494486') {
-      filteredLeads.push(singleLead);
-    }else{
+   
+    // if (leadstatusid && leadstatusid.toString() === '65a904fc4473619190494486') {
+    //   filteredLeads.push(singleLead);
+    // }else{
       const count = await FollowupLead.countDocuments({ lead_id });
       if (count <= 1) {
         filteredLeads.push(singleLead);
       }
-    }
+   // }
     
   }
 
@@ -415,14 +415,14 @@ exports.getAllNewLeadBYAgentId = catchAsyncErrors(async (req, res, next) => {
   //    filteredLeads.push(singleLead);
   //  } 
    
-   if (leadstatusid && leadstatusid.toString() === '65a904fc4473619190494486') {
-    filteredLeads.push(singleLead);
-  }else{
+  //  if (leadstatusid && leadstatusid.toString() === '65a904fc4473619190494486') {
+  //   filteredLeads.push(singleLead);
+  // }else{
      const count = await FollowupLead.countDocuments({ lead_id });
      if (count <= 1) {
        filteredLeads.push(singleLead);
      }
-   }
+  // }
   }
 
   res.status(200).json({
