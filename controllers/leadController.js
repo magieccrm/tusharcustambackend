@@ -534,7 +534,7 @@ exports.getAllLeadFollowup = catchAsyncErrors(async (req, res, next) => {
             // new ObjectId("65a904fc4473619190494486")
           ],
         },
-        type: "excel",
+        type: { $ne: "excel" },
       },
     },
 
@@ -665,7 +665,7 @@ exports.getLeadbyagentidandwithoutstatus = catchAsyncErrors(
               // new ObjectId("65a904fc4473619190494486")
             ],
           },
-          type: "excel",
+          type: { $ne: "excel" },
         },
       },
 
@@ -1065,7 +1065,7 @@ exports.getLeadbyTeamLeaderidandwithoutstatus = catchAsyncErrors(
               new ObjectId("65a904ed4473619190494484"),
                 ],
           },
-          type: "excel",
+          type: { $ne: "excel" },
         },
       },
 

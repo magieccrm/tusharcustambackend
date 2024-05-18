@@ -19,8 +19,8 @@ const leadSchema = new mongoose.Schema({
   contact_no: {
     type: String,
     // required: true,
-    unique: true,
-    trim: true,
+    // unique: true,
+    trim: true, 
   },
   alternative_no: { 
     // type: Number,

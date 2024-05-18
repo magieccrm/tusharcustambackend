@@ -1337,10 +1337,9 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
     status: {
       $in: [
         new ObjectId("65a904ed4473619190494484"),
-        // new ObjectId("65a904ed4473619190494484")
       ],
     },
-    type: "excel",
+    type: { $ne: "excel" },
   });
 
 
@@ -1484,7 +1483,7 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
         new ObjectId("65a904ed4473619190494484"),
       ],
     },
-    type: "excel",
+    type: { $ne: "excel" },
   });
 
 
@@ -1646,7 +1645,7 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
         new ObjectId("65a904ed4473619190494484"),
       ],
     },
-    type: "excel",
+    type: { $ne: "excel" },
   });
 
 
