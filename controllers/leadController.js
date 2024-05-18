@@ -232,19 +232,13 @@ exports.getAllNewLead = catchAsyncErrors(async (req, res, next) => {
     {
       $lookup: {
         from: "crm_lead_sources",
-        // localField:'lead_source',
-        // foreignField:'_id',
         let: { lead_sourceString: "$lead_source" },
         pipeline: [
           {
             $match: {
               $expr: {
                 $eq: ["$_id", { $toObjectId: "$$lead_sourceString" }],
-                // $cond: {
-                //   if: { $ne: ["$$lead_sourceString", ""] },
-                //   then: { $eq: ["$_id", { $toObjectId: "$$lead_sourceString" }] },
-                //   else: false,
-                // },
+                
               },
             },
           },
@@ -413,9 +407,13 @@ exports.getAllNewLeadBYAgentId = catchAsyncErrors(async (req, res, next) => {
     const lead_id = singleLead?._id;
     const leadstatusid=singleLead?.status;
    
-    if(leadstatusid.toString()==='65a904fc4473619190494486'){
-     filteredLeads.push(singleLead);
-   }else{
+  //   if(leadstatusid.toString()==='65a904fc4473619190494486'){
+  //    filteredLeads.push(singleLead);
+  //  } 
+   
+   if (leadstatusid && leadstatusid.toString() === '65a904fc4473619190494486') {
+    filteredLeads.push(singleLead);
+  }else{
      const count = await FollowupLead.countDocuments({ lead_id });
      if (count <= 1) {
        filteredLeads.push(singleLead);
