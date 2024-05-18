@@ -1113,24 +1113,24 @@ exports.getLeadbyScheduleEventid = catchAsyncErrors(
         matchConditions.assign_to_agent = new ObjectId(assign_to_agent);
     }
 
-    matchConditions.$or = [
-        {
-            $expr: {
-                $eq: [
-                    { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
-                    { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } }
-                ]
-            }
-        },
-        {
-            $expr: {
-                $eq: [
-                    { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
-                    { $dateToString: { format: "%Y-%m-%d", date: nextDate } }
-                ]
-            }
-        }
-    ];
+    // matchConditions.$or = [
+    //     {
+    //         $expr: {
+    //             $eq: [
+    //                 { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
+    //                 { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } }
+    //             ]
+    //         }
+    //     },
+    //     {
+    //         $expr: {
+    //             $eq: [
+    //                 { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
+    //                 { $dateToString: { format: "%Y-%m-%d", date: nextDate } }
+    //             ]
+    //         }
+    //     }
+    // ];
     
     const lead = await Lead.aggregate([
       {
