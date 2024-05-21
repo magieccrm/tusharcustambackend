@@ -11,7 +11,7 @@ const Setting = require('../models/settingModel');
 const { Agent } = require("express-useragent");
 const wtspmessageModel = require("../models/wtspmessageModel");
 const { ObjectId } = require('mongoose').Types;
-const Notification=require("../models/notificationModel");
+const Notification = require("../models/notificationModel");
 const FCM = require("fcm-node");
 const serverKey = "AAAAnus9Ao0:APA91bGCHcEiRwMsFRbsnN8od663jhfhdnuq10H2jMMmFzVrCVBACE4caGSZ-mAwf3VB6n_fUmrHxKPou1oyBaKXfUfcnAz6J2TTJm12woXqJVTleay2RSE0KPzuRTI2QppI3rrYY2HQ"; // Replace with your actual server key
 const fcm = new FCM(serverKey);
@@ -52,7 +52,7 @@ exports.bwnotification = catchAsyncErrors(async (req, res, next) => {
   });
 
   const tokentable = await Notification.find({ user_id: '65a8eee17dd25ded3ca0fb99' });
- const token = tokentable ? tokentable[0].token : null;
+  const token = tokentable ? tokentable[0].token : null;
 
   if (!message) {
     message = message;
@@ -61,9 +61,9 @@ exports.bwnotification = catchAsyncErrors(async (req, res, next) => {
   const notificationData = {
     collapse_key: "your_collapse_key",
     notification: {
-      title: fromname +' '+'(Business WA)',
+      title: fromname + ' ' + '(Business WA)',
       body: message,
-      icon:"https://www.clickpro.in/img/notificationicon.jpg"
+      icon: "https://www.clickpro.in/img/notificationicon.jpg"
     },
     data: {
       my_key: "my value",
@@ -82,7 +82,7 @@ exports.bwnotification = catchAsyncErrors(async (req, res, next) => {
     });
   } else {
     console.log('Token not found for agent:', agent_id);
-  } 
+  }
 
   res.status(200).json({
     success: true,
@@ -95,8 +95,8 @@ exports.Businesswtspmessage = catchAsyncErrors(async (req, res, next) => {
   const wtspmessage = await wtspmessageModel.find().sort({ createdAt: -1 });
   res.status(200).json({
     success: true,
-    data: wtspmessage,  
-  }); 
+    data: wtspmessage,
+  });
 })
 
 
@@ -1428,7 +1428,7 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
   array.push(
     { ['name']: 'Total Lead', ['Value']: alllead.length },
     { ['name']: 'Pending', ['Value']: followuplead.length },
-   
+
     {
       ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length,
       ['id']: '65a904164473619190494480'
@@ -1438,7 +1438,7 @@ exports.DashboardLeadCount = catchAsyncErrors(async (req, res, next) => {
       , ['id']: '65a903f8447361919049447c'
     },
     {
-      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length, 
+      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length,
       ['id']: '65a903ca4473619190494478'
     },
     {
@@ -1471,7 +1471,7 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
   const targetDateOnly = new Date(targetDate.toISOString().split('T')[0]);
   const nextDate = new Date(targetDate);
   nextDate.setDate(nextDate.getDate() + 1); // Get next day from targetDate
-   
+
   const alllead = await Lead.find();
 
   ///// for Followup Lead count
@@ -1479,7 +1479,6 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
     assign_to_agent: agentObjectId,
     status: {
       $in: [
-        // new ObjectId("65a904e04473619190494482"),
         new ObjectId("65a904ed4473619190494484"),
       ],
     },
@@ -1487,114 +1486,58 @@ exports.DashboardLeadCountOfUser = catchAsyncErrors(async (req, res, next) => {
   });
 
 
-  ///// for meeting
-  const meetinglead = await Lead.find({
+  ///// for Interested
+  const Interestedlead = await Lead.find({
     assign_to_agent: agentObjectId,
     status: '65a904164473619190494480',
-    // $expr: {
-    //   $eq: [
-    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-    //   ]
-    // }
-  });
-  const meetingleadNextDay = await Lead.find({
-    assign_to_agent: agentObjectId,
-    status: '65a904164473619190494480',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
-        { $dateToString: { format: "%Y-%m-%d", date: nextDate } }
-      ]
-    }
+
   });
 
-  const meetinglead_name = await Status.findOne({ _id: '65a904164473619190494480' });
-  ///// for Call Back (Visit)
-  const Visit = await Lead.find({
+
+  const Interestedlead_name = await Status.findOne({ _id: '65a904164473619190494480' });
+  ///// for Call Back (notintrested)
+  const notintrested = await Lead.find({
     assign_to_agent: agentObjectId,
     status: '65a903f8447361919049447c',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    
   });
-  const VisitleadNextDay = await Lead.find({
-    assign_to_agent: agentObjectId,
-    // status: '65a903f8447361919049447c',
-    // $expr: {
-    //   $eq: [
-    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
-    //     { $dateToString: { format: "%Y-%m-%d", date: nextDate } }
-    //   ]
-    // }
-  });
-  const Visit_name = await Status.findOne({ _id: '65a903f8447361919049447c' });
+
+  const notintrested_name = await Status.findOne({ _id: '65a903f8447361919049447c' });
 
   ///// for Call Back (Re-Visit)
-  const Re_Visit = await Lead.find({
+  const Visit = await Lead.find({
     assign_to_agent: agentObjectId,
     status: '65a903ca4473619190494478',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-        { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-      ]
-    }
+    
   });
-  const Re_VisitleadNextDay = await Lead.find({
-    assign_to_agent: agentObjectId,
-    status: '65a903ca4473619190494478',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
-        { $dateToString: { format: "%Y-%m-%d", date: nextDate } }
-      ]
-    }
-  });
-  const Re_Visit_name = await Status.findOne({ _id: '65a903ca4473619190494478' });
-  ///// for Call Back (Re-Visit)
-  const Shedule_Visit = await Lead.find({
+
+  const Visit_name = await Status.findOne({ _id: '65a903ca4473619190494478' });
+  ///// for Call Back (closure)
+  const closure = await Lead.find({
     assign_to_agent: agentObjectId,
     status: '65a903e9447361919049447a',
-    // $expr: {
-    //   $eq: [
-    //     { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } }, // Convert followup_date to date string
-    //     { $dateToString: { format: "%Y-%m-%d", date: targetDateOnly } } // Convert targetDateOnly to date string
-    //   ]
-    // }
+
   });
-  const Shedule_VisitleadNextDay = await Lead.find({
-    assign_to_agent: agentObjectId,
-    status: '65a903e9447361919049447a',
-    $expr: {
-      $eq: [
-        { $dateToString: { format: "%Y-%m-%d", date: "$followup_date" } },
-        { $dateToString: { format: "%Y-%m-%d", date: nextDate } }
-      ]
-    }
-  });
-  const Shedule_Visit_name = await Status.findOne({ _id: '65a903e9447361919049447a' });
+
+
+  const closure_name = await Status.findOne({ _id: '65a903e9447361919049447a' });
   array.push(
     { ['name']: 'Total Lead', ['Value']: alllead.length },
     { ['name']: 'Pending', ['Value']: followuplead.length },
-    // { ['name']: 'Total Agent', ['Value']: 1 },
     {
-      ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length,
+      ['name']: Interestedlead_name?.status_name1, ['Value']: Interestedlead.length,
       ['id']: '65a904164473619190494480'
     },
     {
-      ['name']: Visit_name?.status_name1, ['Value']: Visit.length
+      ['name']: notintrested_name?.status_name1, ['Value']: notintrested.length
       , ['id']: '65a903f8447361919049447c'
     },
     {
-      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length,
+      ['name']: Visit_name?.status_name1, ['Value']: Visit.length,
       ['id']: '65a903ca4473619190494478'
     },
     {
-      ['name']: Shedule_Visit_name?.status_name1, ['Value']: Shedule_Visit.length,
+      ['name']: closure_name?.status_name1, ['Value']: closure.length,
       ['id']: '65a903e9447361919049447a'
     },
   );
@@ -1641,7 +1584,6 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
     assign_to_agent: { $in: allAgents.map(agent => new ObjectId(agent._id)) },
     status: {
       $in: [
-        // new ObjectId("65a904e04473619190494482"),
         new ObjectId("65a904ed4473619190494484"),
       ],
     },
@@ -1744,7 +1686,7 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
     { ['name']: 'Pending', ['Value']: followuplead.length },
     // { ['name']: 'Total Agent', ['Value']: allAgents.map(agent => new ObjectId(agent._id))?.length },
     {
-      ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length, 
+      ['name']: meetinglead_name?.status_name1, ['Value']: meetinglead.length,
       ['id']: '65a904164473619190494480'
     },
     {
@@ -1752,7 +1694,7 @@ exports.DashboardLeadCountOfUserByTeamLeader = catchAsyncErrors(async (req, res,
       , ['id']: '65a903f8447361919049447c'
     },
     {
-      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length, 
+      ['name']: Re_Visit_name?.status_name1, ['Value']: Re_Visit.length,
       ['id']: '65a903ca4473619190494478'
     },
     {
