@@ -255,7 +255,7 @@ exports.getAllNewLead = catchAsyncErrors(async (req, res, next) => {
 
     {
       $sort: {
-        followup_date: 1, // 1 for ascending(123) order, -1 for descending(321) order
+        created: -1, // 1 for ascending(123) order, -1 for descending(321) order
       },
     },
   ]);
